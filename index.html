@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Loja - Vitrine</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones via FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
+    <!-- Cabeçalho / Navbar -->
+    <header class="navbar">
+        <div class="header-container">
+            <a href="index.html" class="logo">Minha<span>Loja</span></a>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar produtos, marcas e muito mais...">
+                <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div class="nav-actions">
+                <a href="admin.html" class="admin-link" title="Painel Admin">
+                    <i class="fa-solid fa-gear"></i> Painel Admin
+                </a>
+                <div class="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="hero-banner">
+        <h2>As melhores ofertas estilo Shopee!</h2>
+        <p>Aproveite cupons de frete grátis e descontos exclusivos.</p>
+    </section>
+
+    <!-- Conteúdo Principal / Vitrine -->
+    <main class="main-container">
+        <aside class="sidebar-filters">
+            <h3>Categorias</h3>
+            <ul>
+                <li><a href="#">Eletrônicos</a></li>
+                <li><a href="#">Roupas & Acessórios</a></li>
+                <li><a href="#">Casa & Decoração</a></li>
+                <li><a href="#">Esportes</a></li>
+            </ul>
+        </aside>
+
+        <section class="products-section">
+            <div class="section-title">
+                <h2>Produtos em Destaque</h2>
+            </div>
+            
+            <!-- Grid de Produtos Dinâmicos -->
+            <div class="product-grid" id="productGrid">
+                <!-- Os produtos serão renderizados via JS aqui -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy; 2026 MinhaLoja. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
