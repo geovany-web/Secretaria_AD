@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Loja - Vitrine</title>
+    <title>NebulaMarket - Vitrine</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Ícones via FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -16,7 +15,7 @@
             <a href="index.html" class="logo">Nebula<span>Market</span></a>
             
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Buscar produtos, marcas e muito mais...">
+                <input type="text" id="searchInput" placeholder="Buscar produtos...">
                 <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
 
@@ -24,10 +23,10 @@
                 <a href="admin.html" class="admin-link" title="Painel Admin">
                     <i class="fa-solid fa-gear"></i> Painel Admin
                 </a>
-                <div class="cart-icon">
+                <button class="cart-btn" id="cartBtn" type="button">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cartCount">0</span>
-                </div>
+                </button>
             </div>
         </div>
     </header>
@@ -43,10 +42,11 @@
         <aside class="sidebar-filters">
             <h3>Categorias</h3>
             <ul>
-                <li><a href="#">Eletrônicos</a></li>
-                <li><a href="#">Roupas & Acessórios</a></li>
-                <li><a href="#">Casa & Decoração</a></li>
-                <li><a href="#">Esportes</a></li>
+                <li><a href="#" onclick="filtrarCategoria('Todas')">Todas</a></li>
+                <li><a href="#" onclick="filtrarCategoria('Eletrônicos')">Eletrônicos</a></li>
+                <li><a href="#" onclick="filtrarCategoria('Roupas & Acessórios')">Roupas & Acessórios</a></li>
+                <li><a href="#" onclick="filtrarCategoria('Casa & Decoração')">Casa & Decoração</a></li>
+                <li><a href="#" onclick="filtrarCategoria('Esportes')">Esportes</a></li>
             </ul>
         </aside>
 
@@ -55,16 +55,33 @@
                 <h2>Produtos em Destaque</h2>
             </div>
             
-            <!-- Grid de Produtos Dinâmicos -->
             <div class="product-grid" id="productGrid">
-                <!-- Os produtos serão renderizados via JS aqui -->
+                <!-- Produtos renderizados via JS -->
             </div>
         </section>
     </main>
 
-    <!-- Rodapé -->
+    <!-- MODAL DO CARRINHO (JANELA FLUTUANTE) -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Meu Carrinho</h3>
+                <button class="close-btn" id="closeCart">&times;</button>
+            </div>
+            <div class="modal-body" id="cartItemsContainer">
+                <!-- Itens do carrinho aparecem aqui -->
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total">
+                    Total: <span id="cartTotal">R$ 0,00</span>
+                </div>
+                <button class="btn-checkout" onclick="finalizarPedido()">Finalizar no WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
-        <p>&copy; 2026 MinhaLoja. Todos os direitos reservados.</p>
+        <p>&copy; 2026 NebulaMarket. Todos os direitos reservados.</p>
     </footer>
 
     <script src="script.js"></script>
