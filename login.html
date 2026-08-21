@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NebulaMarket - Login</title>
+    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-body">
+
+    <!-- Canvas para Animação de Estrelas e Meteoros -->
+    <canvas id="spaceCanvas"></canvas>
+
+    <!-- Card Flutuante de Login -->
+    <div class="login-card">
+        <a href="index.html" class="logo">Nebula<span>Market</span></a>
+        <h2><i class="fa-solid fa-user-astronaut"></i> Acesso Cósmico</h2>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email"><i class="fa-solid fa-envelope"></i> E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-key"></i> Senha</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Entrar na Órbita <i class="fa-solid fa-rocket"></i>
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar à Loja</a>
+        </div>
+    </div>
+
+    <script src="space-effect.js"></script>
+</body>
+</html>
