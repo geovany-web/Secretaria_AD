@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     carregarProdutos();
+    atualizarContadorCarrinho();
 
     // Filtro de busca na vitrine
     const searchInput = document.getElementById('searchInput');
@@ -36,9 +37,33 @@ function carregarProdutos() {
             <div class="product-info">
                 <h3 class="product-title">${prod.nome}</h3>
                 <div class="product-price">R$ ${parseFloat(prod.preco).toFixed(2).replace('.', ',')}</div>
-                <button class="btn-buy" onclick="alert('Produto adicionado ao carrinho!')">Comprar</button>
+                <button class="btn-buy" onclick="adicionarAoCarrinho('${prod.id}')">Comprar</button>
             </div>
         `;
         productGrid.appendChild(card);
     });
+}
+
+// Lógica do Carrinho de Compras
+function adicionarAoCarrinho(idProduto) {
+    const produtos = JSON.parse(localStorage.getItem('produtos_shoppee')) || [];
+    const produto = produtos.find(p => p.id === idProduto);
+
+    if (!produto) return;
+
+    let carrinho = JSON.parse(localStorage.getItem('carrinho_shoppee')) || [];
+    carrinho.push(produto);
+    
+    localStorage.setItem('carrinho_shoppee', JSON.stringify(carrinho));
+    
+    atualizarContadorCarrinho();
+    alert(`"${produto.nome}" foi adicionado ao seu carrinho!`);
+}
+
+function atualizarContadorCarrinho() {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho_shoppee')) || [];
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+        cartCount.textContent = carrinho.length;
+    }
 }
