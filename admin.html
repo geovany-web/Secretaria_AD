@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Minha Loja</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones via FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+
+    <!-- Cabeçalho do Admin -->
+    <header class="navbar admin-navbar">
+        <div class="header-container">
+            <a href="index.html" class="logo">Minha<span>Loja</span> <small>[Admin]</small></a>
+            <div class="nav-actions">
+                <a href="index.html" class="store-link">
+                    <i class="fa-solid fa-store"></i> Ver Loja
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal do Admin -->
+    <main class="admin-container">
+        
+        <!-- Formulário de Cadastro / Edição -->
+        <section class="admin-card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-box-archive"></i> Cadastrar Novo Produto</h2>
+            </div>
+            
+            <form id="productForm" class="product-form">
+                <input type="hidden" id="productId">
+
+                <div class="form-group">
+                    <label for="productName">Nome do Produto</label>
+                    <input type="text" id="productName" placeholder="Ex: Fone de Ouvido Bluetooth" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Preço (R$)</label>
+                        <input type="number" id="productPrice" step="0.01" placeholder="99.90" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productCategory">Categoria</label>
+                        <select id="productCategory" required>
+                            <option value="">Selecione...</option>
+                            <option value="Eletrônicos">Eletrônicos</option>
+                            <option value="Roupas & Acessórios">Roupas & Acessórios</option>
+                            <option value="Casa & Decoração">Casa & Decoração</option>
+                            <option value="Esportes">Esportes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productImage">URL da Imagem</label>
+                    <input type="url" id="productImage" placeholder="https://exemplo.com/imagem.jpg" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription">Descrição do Produto</label>
+                    <textarea id="productDescription" rows="4" placeholder="Detalhes, especificações e características do produto..." required></textarea>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary" id="btnSave">
+                        <i class="fa-solid fa-plus"></i> Salvar Produto
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btnCancel" style="display: none;">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Tabela de Gerenciamento -->
+        <section class="admin-card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-list"></i> Produtos Cadastrados</h2>
+            </div>
+
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Categoria</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminProductList">
+                        <!-- Linhas geradas dinamicamente via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy; 2026 MinhaLoja Admin. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>
