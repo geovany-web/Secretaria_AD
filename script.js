@@ -661,6 +661,9 @@ await new Promise(function(resolve) {
 
 });
 
+    const logoPDF =
+    imagemParaDataURL(logo);
+
     const pdf =
         new jsPDF();
 
@@ -677,8 +680,19 @@ await new Promise(function(resolve) {
             .value
             .trim();
 
+let y = 15;
 
-    let y = 20;
+
+/* LOGO */
+
+pdf.addImage(
+    logoPDF,
+    "JPEG",
+    15,
+    10,
+    28,
+    28
+);
 
 
     /* CABEÇALHO */
@@ -1073,6 +1087,38 @@ function formatarData(data) {
         partes[1] +
         "/" +
         partes[0]
+    );
+
+}
+
+function imagemParaDataURL(img) {
+
+    const canvas =
+        document.createElement("canvas");
+
+
+    canvas.width =
+        img.naturalWidth;
+
+
+    canvas.height =
+        img.naturalHeight;
+
+
+    const contexto =
+        canvas.getContext("2d");
+
+
+    contexto.drawImage(
+        img,
+        0,
+        0
+    );
+
+
+    return canvas.toDataURL(
+        "image/jpeg",
+        0.9
     );
 
 }
