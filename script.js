@@ -1,10 +1,12 @@
 const grupos = [
+
     "homens",
     "mulheres",
     "jovens",
     "adolescentes",
     "criancas",
     "bercario"
+
 ];
 
 
@@ -38,11 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     atualizarResumo();
 
-
-    /*
-        Aqui os botões são encontrados
-        pelo JavaScript.
-    */
 
     const botoesAdicionar =
         document.querySelectorAll(".btn-adicionar");
@@ -141,6 +138,7 @@ function adicionarPessoa(grupo) {
             placeholder="Digite o nome"
         >
 
+
         <div class="presenca">
 
             <button
@@ -150,6 +148,7 @@ function adicionarPessoa(grupo) {
                 ✓ Presente
             </button>
 
+
             <button
                 type="button"
                 class="btn-falta"
@@ -158,6 +157,7 @@ function adicionarPessoa(grupo) {
             </button>
 
         </div>
+
 
         <button
             type="button"
@@ -389,11 +389,6 @@ function salvarNomes() {
                     .trim();
 
 
-            /*
-                Só salva quem realmente
-                escreveu um nome.
-            */
-
             if (nome === "") {
 
                 return;
@@ -515,6 +510,7 @@ function carregarNomes() {
                     placeholder="Digite o nome"
                 >
 
+
                 <div class="presenca">
 
                     <button
@@ -524,6 +520,7 @@ function carregarNomes() {
                         ✓ Presente
                     </button>
 
+
                     <button
                         type="button"
                         class="btn-falta"
@@ -532,6 +529,7 @@ function carregarNomes() {
                     </button>
 
                 </div>
+
 
                 <button
                     type="button"
@@ -587,10 +585,15 @@ function carregarNomes() {
 function escaparHTML(texto) {
 
     return texto
+
         .replace(/&/g, "&amp;")
+
         .replace(/</g, "&lt;")
+
         .replace(/>/g, "&gt;")
+
         .replace(/"/g, "&quot;")
+
         .replace(/'/g, "&#039;");
 
 }
@@ -643,453 +646,49 @@ function novaChamada() {
 
 
 /* =========================
-   PDF
+   CARREGAR LOGO
 ========================= */
 
-async function baixarPDF() {
+function carregarLogo() {
 
-    const { jsPDF } =
-        window.jspdf;
-    
-    const logo = new Image();
+    return new Promise(function (resolve, reject) {
 
-logo.src = "img/logo.jpeg";
+        const imagem =
+            new Image();
 
-await new Promise(function(resolve) {
 
-    logo.onload = resolve;
+        imagem.onload =
+            function () {
 
-});
+                resolve(imagem);
 
-    const logoPDF =
-    imagemParaDataURL(logo);
+            };
 
-    const pdf =
-        new jsPDF();
 
+        imagem.onerror =
+            function () {
 
-    const data =
-        document
-            .getElementById("data")
-            .value;
+                reject(
+                    new Error(
+                        "Não foi possível carregar a logo."
+                    )
+                );
 
+            };
 
-    const responsavel =
-        document
-            .getElementById("responsavel")
-            .value
-            .trim();
 
-let y = 15;
-
-
-/* LOGO */
-
-pdf.addImage(
-    logoPDF,
-    "JPEG",
-    15,
-    10,
-    28,
-    28
-);
-
-
-    /* CABEÇALHO */
-
-    pdf.setFontSize(17);
-
-    pdf.setFont(undefined, "bold");
-
-    pdf.text(
-        "ASSEMBLEIA DE DEUS",
-        105,
-        y,
-        { align: "center" }
-    );
-
-
-    y += 8;
-
-
-    pdf.setFontSize(14);
-
-    pdf.text(
-        "REGIONAL ESMERALDAS",
-        105,
-        y,
-        { align: "center" }
-    );
-
-
-    y += 7;
-
-
-    pdf.setFontSize(10);
-
-    pdf.setFont(undefined, "normal");
-
-    pdf.text(
-        "Ministério de Belo Horizonte",
-        105,
-        y,
-        { align: "center" }
-    );
-
-
-    y += 12;
-
-
-    pdf.setFontSize(15);
-
-    pdf.setFont(undefined, "bold");
-
-    pdf.text(
-        "LISTA DE PRESENÇA",
-        105,
-        y,
-        { align: "center" }
-    );
-
-
-    y += 10;
-
-
-    pdf.setFontSize(10);
-
-    pdf.setFont(undefined, "normal");
-
-
-    pdf.text(
-        "Data: " + formatarData(data),
-        20,
-        y
-    );
-
-
-    y += 7;
-
-
-    pdf.text(
-        "Quem fez a chamada: " +
-        (responsavel || "Não informado"),
-        20,
-        y
-    );
-
-
-    y += 7;
-
-
-    pdf.text(
-        "Pastor Regional: Pr. Welington Bicalho",
-        20,
-        y
-    );
-
-
-    y += 7;
-
-
-    pdf.text(
-        "Endereço: Rua Treze de Maio, 170 - Esmeraldas/MG",
-        20,
-        y
-    );
-
-
-    y += 12;
-
-
-    let total = 0;
-
-    let presentes = 0;
-
-    let faltas = 0;
-
-
-    /* GRUPOS */
-
-    grupos.forEach(function (grupo) {
-
-        const pessoas =
-            document.querySelectorAll(
-                `#${grupo} .pessoa`
-            );
-
-
-        const validas =
-            Array.from(pessoas)
-                .filter(function (pessoa) {
-
-                    return pessoa
-                        .querySelector(".nome-pessoa")
-                        .value
-                        .trim() !== "";
-
-                });
-
-
-        /*
-            Grupo vazio não aparece
-            no PDF.
-        */
-
-        if (validas.length === 0) {
-
-            return;
-
-        }
-
-
-        if (y > 260) {
-
-            pdf.addPage();
-
-            y = 20;
-
-        }
-
-
-        pdf.setFontSize(12);
-
-        pdf.setFont(undefined, "bold");
-
-
-        pdf.text(
-            nomesGrupos[grupo],
-            20,
-            y
-        );
-
-
-        y += 7;
-
-
-        pdf.setFontSize(10);
-
-        pdf.setFont(undefined, "normal");
-
-
-        validas.forEach(function (
-            pessoa,
-            index
-        ) {
-
-            const nome =
-                pessoa
-                    .querySelector(".nome-pessoa")
-                    .value
-                    .trim();
-
-
-            let status =
-                "NÃO MARCADO";
-
-
-            if (
-                pessoa
-                    .querySelector(".btn-presente")
-                    .classList
-                    .contains("ativo")
-            ) {
-
-                status =
-                    "PRESENTE";
-
-                presentes++;
-
-            }
-
-
-            if (
-                pessoa
-                    .querySelector(".btn-falta")
-                    .classList
-                    .contains("ativo")
-            ) {
-
-                status =
-                    "FALTA";
-
-                faltas++;
-
-            }
-
-
-            total++;
-
-
-            pdf.text(
-                `${index + 1}. ${nome}`,
-                20,
-                y
-            );
-
-
-            pdf.text(
-                status,
-                150,
-                y
-            );
-
-
-            y += 7;
-
-
-            if (y > 275) {
-
-                pdf.addPage();
-
-                y = 20;
-
-            }
-
-        });
-
-
-        y += 5;
+        imagem.src =
+            "img/logo.jpeg";
 
     });
-
-
-
-    /* RESUMO */
-
-    if (y > 250) {
-
-        pdf.addPage();
-
-        y = 20;
-
-    }
-
-
-    pdf.setFontSize(13);
-
-    pdf.setFont(undefined, "bold");
-
-    pdf.text(
-        "RESUMO DA CHAMADA",
-        20,
-        y
-    );
-
-
-    y += 8;
-
-
-    pdf.setFontSize(10);
-
-    pdf.setFont(undefined, "normal");
-
-
-    pdf.text(
-        "Total de pessoas: " + total,
-        20,
-        y
-    );
-
-
-    y += 7;
-
-
-    pdf.text(
-        "Presentes: " + presentes,
-        20,
-        y
-    );
-
-
-    y += 7;
-
-
-    pdf.text(
-        "Faltas: " + faltas,
-        20,
-        y
-    );
-
-
-    y += 15;
-
-
-    pdf.text(
-        "Responsável pela chamada:",
-        20,
-        y
-    );
-
-
-    y += 8;
-
-
-    pdf.line(
-        20,
-        y,
-        100,
-        y
-    );
-
-
-    pdf.text(
-        responsavel || "Não informado",
-        20,
-        y + 6
-    );
-
-
-    y += 20;
-
-
-    pdf.setFontSize(8);
-
-    pdf.text(
-        "AD Esmeraldas - Assembleia de Deus - Ministério de Belo Horizonte",
-        105,
-        y,
-        { align: "center" }
-    );
-
-
-    const nomeArquivo =
-        data
-            ? `chamada-AD-Esmeraldas-${data}.pdf`
-            : "chamada-AD-Esmeraldas.pdf";
-
-
-    pdf.save(nomeArquivo);
 
 }
 
 
 
 /* =========================
-   FORMATAR DATA
+   CONVERTER LOGO
 ========================= */
-
-function formatarData(data) {
-
-    if (!data) {
-
-        return "Não informada";
-
-    }
-
-
-    const partes =
-        data.split("-");
-
-
-    return (
-        partes[2] +
-        "/" +
-        partes[1] +
-        "/" +
-        partes[0]
-    );
-
-}
 
 function imagemParaDataURL(img) {
 
@@ -1118,7 +717,502 @@ function imagemParaDataURL(img) {
 
     return canvas.toDataURL(
         "image/jpeg",
-        0.9
+        0.90
+    );
+
+}
+
+
+
+/* =========================
+   PDF
+========================= */
+
+async function baixarPDF() {
+
+    try {
+
+        const { jsPDF } =
+            window.jspdf;
+
+
+        /* CARREGAR LOGO */
+
+        const logo =
+            await carregarLogo();
+
+
+        const logoPDF =
+            imagemParaDataURL(logo);
+
+
+        /* CRIAR PDF */
+
+        const pdf =
+            new jsPDF();
+
+
+        const data =
+            document
+                .getElementById("data")
+                .value;
+
+
+        const responsavel =
+            document
+                .getElementById("responsavel")
+                .value
+                .trim();
+
+
+        let y = 18;
+
+
+
+        /* =========================
+           CABEÇALHO COM LOGO
+        ========================= */
+
+        pdf.addImage(
+            logoPDF,
+            "JPEG",
+            15,
+            10,
+            28,
+            28
+        );
+
+
+        pdf.setFontSize(17);
+
+        pdf.setFont(undefined, "bold");
+
+        pdf.text(
+            "ASSEMBLEIA DE DEUS",
+            105,
+            y,
+            {
+                align: "center"
+            }
+        );
+
+
+        y += 8;
+
+
+        pdf.setFontSize(14);
+
+        pdf.text(
+            "REGIONAL ESMERALDAS",
+            105,
+            y,
+            {
+                align: "center"
+            }
+        );
+
+
+        y += 7;
+
+
+        pdf.setFontSize(10);
+
+        pdf.setFont(undefined, "normal");
+
+        pdf.text(
+            "Ministério de Belo Horizonte",
+            105,
+            y,
+            {
+                align: "center"
+            }
+        );
+
+
+        y += 12;
+
+
+        pdf.setFontSize(15);
+
+        pdf.setFont(undefined, "bold");
+
+        pdf.text(
+            "LISTA DE PRESENÇA",
+            105,
+            y,
+            {
+                align: "center"
+            }
+        );
+
+
+        y += 10;
+
+
+
+        /* =========================
+           INFORMAÇÕES
+        ========================= */
+
+        pdf.setFontSize(10);
+
+        pdf.setFont(undefined, "normal");
+
+
+        pdf.text(
+            "Data: " + formatarData(data),
+            20,
+            y
+        );
+
+
+        y += 7;
+
+
+        pdf.text(
+            "Quem fez a chamada: " +
+            (responsavel || "Não informado"),
+            20,
+            y
+        );
+
+
+        y += 7;
+
+
+        pdf.text(
+            "Pastor Regional: Pr. Welington Bicalho",
+            20,
+            y
+        );
+
+
+        y += 7;
+
+
+        pdf.text(
+            "Endereço: Rua Treze de Maio, 170 - Esmeraldas/MG",
+            20,
+            y
+        );
+
+
+        y += 12;
+
+
+
+        /* =========================
+           CONTADORES
+        ========================= */
+
+        let total = 0;
+
+        let presentes = 0;
+
+        let faltas = 0;
+
+
+
+        /* =========================
+           GRUPOS
+        ========================= */
+
+        grupos.forEach(function (grupo) {
+
+            const pessoas =
+                document.querySelectorAll(
+                    `#${grupo} .pessoa`
+                );
+
+
+            const validas =
+                Array.from(pessoas)
+                    .filter(function (pessoa) {
+
+                        return pessoa
+                            .querySelector(".nome-pessoa")
+                            .value
+                            .trim() !== "";
+
+                    });
+
+
+            /* GRUPO VAZIO NÃO APARECE */
+
+            if (validas.length === 0) {
+
+                return;
+
+            }
+
+
+            if (y > 260) {
+
+                pdf.addPage();
+
+                y = 20;
+
+            }
+
+
+            pdf.setFontSize(12);
+
+            pdf.setFont(undefined, "bold");
+
+
+            pdf.text(
+                nomesGrupos[grupo],
+                20,
+                y
+            );
+
+
+            y += 7;
+
+
+            pdf.setFontSize(10);
+
+            pdf.setFont(undefined, "normal");
+
+
+            validas.forEach(function (
+                pessoa,
+                index
+            ) {
+
+                const nome =
+                    pessoa
+                        .querySelector(".nome-pessoa")
+                        .value
+                        .trim();
+
+
+                let status =
+                    "NÃO MARCADO";
+
+
+                if (
+                    pessoa
+                        .querySelector(".btn-presente")
+                        .classList
+                        .contains("ativo")
+                ) {
+
+                    status =
+                        "PRESENTE";
+
+                    presentes++;
+
+                }
+
+
+                if (
+                    pessoa
+                        .querySelector(".btn-falta")
+                        .classList
+                        .contains("ativo")
+                ) {
+
+                    status =
+                        "FALTA";
+
+                    faltas++;
+
+                }
+
+
+                total++;
+
+
+                pdf.text(
+                    `${index + 1}. ${nome}`,
+                    20,
+                    y
+                );
+
+
+                pdf.text(
+                    status,
+                    150,
+                    y
+                );
+
+
+                y += 7;
+
+
+                if (y > 275) {
+
+                    pdf.addPage();
+
+                    y = 20;
+
+                }
+
+            });
+
+
+            y += 5;
+
+        });
+
+
+
+        /* =========================
+           RESUMO
+        ========================= */
+
+        if (y > 250) {
+
+            pdf.addPage();
+
+            y = 20;
+
+        }
+
+
+        pdf.setFontSize(13);
+
+        pdf.setFont(undefined, "bold");
+
+        pdf.text(
+            "RESUMO DA CHAMADA",
+            20,
+            y
+        );
+
+
+        y += 8;
+
+
+        pdf.setFontSize(10);
+
+        pdf.setFont(undefined, "normal");
+
+
+        pdf.text(
+            "Total de pessoas: " + total,
+            20,
+            y
+        );
+
+
+        y += 7;
+
+
+        pdf.text(
+            "Presentes: " + presentes,
+            20,
+            y
+        );
+
+
+        y += 7;
+
+
+        pdf.text(
+            "Faltas: " + faltas,
+            20,
+            y
+        );
+
+
+        y += 15;
+
+
+        pdf.text(
+            "Responsável pela chamada:",
+            20,
+            y
+        );
+
+
+        y += 8;
+
+
+        pdf.line(
+            20,
+            y,
+            100,
+            y
+        );
+
+
+        pdf.text(
+            responsavel || "Não informado",
+            20,
+            y + 6
+        );
+
+
+        y += 20;
+
+
+        pdf.setFontSize(8);
+
+        pdf.text(
+            "AD Esmeraldas - Assembleia de Deus - Ministério de Belo Horizonte",
+            105,
+            y,
+            {
+                align: "center"
+            }
+        );
+
+
+
+        /* =========================
+           SALVAR
+        ========================= */
+
+        const nomeArquivo =
+            data
+                ? `chamada-AD-Esmeraldas-${data}.pdf`
+                : "chamada-AD-Esmeraldas.pdf";
+
+
+        pdf.save(nomeArquivo);
+
+    }
+
+
+    catch (erro) {
+
+        console.error(erro);
+
+        alert(
+            "Não foi possível gerar o PDF. Verifique se a logo está em img/logo.jpeg."
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   FORMATAR DATA
+========================= */
+
+function formatarData(data) {
+
+    if (!data) {
+
+        return "Não informada";
+
+    }
+
+
+    const partes =
+        data.split("-");
+
+
+    return (
+        partes[2] +
+        "/" +
+        partes[1] +
+        "/" +
+        partes[0]
     );
 
 }
