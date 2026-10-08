@@ -6,6 +6,7 @@
 
 
 body {
+
     font-family: Arial, Helvetica, sans-serif;
 
     background:
@@ -50,30 +51,13 @@ header {
 }
 
 
-.logo {
-
-    width: 70px;
-    height: 70px;
-
-    background: white;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0,0,0,0.25);
-}
-
+/* LOGO */
 
 .logo {
-    width: 70px;
-    height: 70px;
+
+    width: 80px;
+
+    height: 80px;
 
     background: white;
 
@@ -96,7 +80,9 @@ header {
 
 
 .logo img {
+
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
@@ -104,6 +90,8 @@ header {
     display: block;
 }
 
+
+/* TEXTO DO CABEÇALHO */
 
 .cabecalho-texto h1 {
 
@@ -696,6 +684,16 @@ footer small {
     header {
 
         justify-content: flex-start;
+
+        padding: 20px 15px;
+    }
+
+
+    .logo {
+
+        width: 65px;
+
+        height: 65px;
     }
 
 
@@ -708,6 +706,12 @@ footer small {
     .cabecalho-texto p {
 
         font-size: 18px;
+    }
+
+
+    .cabecalho-texto span {
+
+        font-size: 11px;
     }
 
 
