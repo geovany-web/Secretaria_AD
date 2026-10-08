@@ -646,11 +646,20 @@ function novaChamada() {
    PDF
 ========================= */
 
-function baixarPDF() {
+async function baixarPDF() {
 
     const { jsPDF } =
         window.jspdf;
+    
+    const logo = new Image();
 
+logo.src = "img/logo.jpeg";
+
+await new Promise(function(resolve) {
+
+    logo.onload = resolve;
+
+});
 
     const pdf =
         new jsPDF();
