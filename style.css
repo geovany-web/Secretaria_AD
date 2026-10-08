@@ -1,467 +1,412 @@
-/* ==========================================================================
-   1. RESET E VARIÁVEIS GLOBAIS - TEMA NEBULOSA NEON
-   ========================================================================== */
-:root {
-    --bg-color: #0b071a;
-    --card-bg: #160f30;
-    --primary-neon: #a855f7;
-    --secondary-neon: #ec4899;
-    --cyan-neon: #06b6d4;
-    --text-color: #f3f4f6;
-    --text-muted: #9ca3af;
-    --border-color: rgba(168, 85, 247, 0.2);
-    --neon-glow: 0 0 15px rgba(168, 85, 247, 0.5);
-    --pink-glow: 0 0 15px rgba(236, 72, 153, 0.5);
-    --radius: 8px;
-}
-
+```css
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: var(--bg-color);
-    background-image: 
-        radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
-    background-attachment: fixed;
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f5f8;
+    color: #222;
 }
 
-/* ==========================================================================
-   2. NAVBAR & HEADER
-   ========================================================================== */
-.navbar {
-    background: rgba(22, 15, 48, 0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
 
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 20px;
+/* CABEÇALHO */
+
+header {
+    background: linear-gradient(135deg, #102a43, #1e4f7a);
+    color: white;
+
+    padding: 25px;
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
+
+    gap: 15px;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0 0 10px var(--primary-neon);
-}
+    width: 60px;
+    height: 60px;
 
-.logo span {
-    color: var(--secondary-neon);
-    text-shadow: 0 0 10px var(--secondary-neon);
-}
+    background: white;
+    color: #164b73;
 
-.search-box {
-    flex: 1;
-    max-width: 600px;
-    display: flex;
-    background: rgba(11, 7, 26, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    overflow: hidden;
-}
+    border-radius: 50%;
 
-.search-box input {
-    width: 100%;
-    padding: 10px 20px;
-    border: none;
-    background: transparent;
-    color: #fff;
-    outline: none;
-}
-
-.search-box button {
-    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-    border: none;
-    color: white;
-    padding: 0 20px;
-    cursor: pointer;
-}
-
-.nav-actions {
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+
+    font-size: 30px;
 }
 
-.admin-link, .store-link {
-    color: var(--text-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(168, 85, 247, 0.1);
-    border: 1px solid var(--border-color);
-    padding: 8px 16px;
-    border-radius: 20px;
+header h1 {
+    font-size: 27px;
 }
 
-.cart-btn {
-    background: transparent;
-    border: none;
-    position: relative;
-    font-size: 1.4rem;
-    color: var(--cyan-neon);
-    cursor: pointer;
-}
-
-.cart-btn #cartCount {
-    position: absolute;
-    top: -8px;
-    right: -10px;
-    background: var(--secondary-neon);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 10px;
-    box-shadow: var(--pink-glow);
-}
-
-/* ==========================================================================
-   3. BANNER & LAYOUT DA LOJA
-   ========================================================================== */
-.hero-banner {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
-    padding: 50px 20px;
-}
-
-.hero-banner h2 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, var(--cyan-neon), var(--primary-neon), var(--secondary-neon));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.main-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-    display: flex;
-    gap: 25px;
-    width: 100%;
-    flex: 1;
-}
-
-.sidebar-filters {
-    width: 230px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: var(--radius);
-    height: fit-content;
-}
-
-.sidebar-filters h3 {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: var(--cyan-neon);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 8px;
-}
-
-.sidebar-filters li { list-style: none; margin-bottom: 12px; }
-.sidebar-filters a { color: var(--text-muted); text-decoration: none; }
-
-.products-section { flex: 1; }
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.product-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    max-width: 100%;
-}
-
-.badge-frete {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: var(--secondary-neon);
-    color: white;
-    font-size: 0.7rem;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    z-index: 2;
-}
-
-.product-card img {
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-    display: block;
-}
-
-.product-info {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.product-cat { font-size: 0.75rem; color: var(--text-muted); }
-.product-title { font-size: 1rem; font-weight: 600; margin: 5px 0; }
-
-.rating { color: #f59e0b; font-size: 0.8rem; margin: 4px 0; display: flex; gap: 2px; align-items: center; }
-.rating span { color: var(--text-muted); margin-left: 5px; }
-
-.product-price {
-    color: var(--cyan-neon);
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: auto;
-    margin-bottom: 12px;
-}
-
-.btn-buy {
-    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* ==========================================================================
-   4. MODAL DO CARRINHO (JANELA FLUTUANTE)
-   ========================================================================== */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(5px);
-    display: flex; justify-content: center; align-items: center;
-    z-index: 2000;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active { opacity: 1; pointer-events: all; }
-
-.modal-content {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    width: 90%; max-width: 450px;
-    display: flex; flex-direction: column;
-    max-height: 80vh;
-}
-
-.modal-header {
-    padding: 15px 20px; border-bottom: 1px solid var(--border-color);
-    display: flex; justify-content: space-between; align-items: center;
-}
-
-.close-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-.modal-body { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-
-.cart-item {
-    display: flex; align-items: center; gap: 15px;
-    background: rgba(11, 7, 26, 0.6); padding: 10px; border-radius: 6px;
-}
-
-.cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
-.cart-item-details { flex: 1; }
-.cart-item-details h4 { font-size: 0.9rem; margin-bottom: 3px; }
-.btn-remove { background: none; border: none; color: var(--secondary-neon); cursor: pointer; }
-
-.modal-footer {
-    padding: 15px 20px; border-top: 1px solid var(--border-color);
-    display: flex; flex-direction: column; gap: 10px;
-}
-
-.cart-total { font-size: 1.1rem; font-weight: bold; text-align: right; color: var(--cyan-neon); }
-.btn-checkout {
-    background: #25d366; color: white; border: none;
-    padding: 12px; border-radius: 20px; font-weight: bold; cursor: pointer;
-}
-
-.footer {
-    background: rgba(11, 7, 26, 0.95);
-    border-top: 1px solid var(--border-color);
-    text-align: center;
-    padding: 20px;
-    margin-top: auto;
-    color: var(--text-muted);
-}
-/* ==========================================================================
-   5. PAINEL DE ADMINISTRAÇÃO
-   ========================================================================== */
-.admin-panel {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 30px;
-    max-width: 600px;
-    margin: 0 auto;
-    width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.admin-panel h2 {
-    color: var(--cyan-neon);
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.admin-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.form-group input, 
-.form-group select {
-    background: rgba(11, 7, 26, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 12px 15px;
-    color: #fff;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus, 
-.form-group select:focus {
-    border-color: var(--primary-neon);
-    box-shadow: var(--neon-glow);
-}
-
-.btn-submit {
-    background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: opacity 0.2s ease;
-}
-
-.btn-submit:hover {
+header p {
+    margin-top: 5px;
     opacity: 0.9;
 }
-/* ==========================================================================
-   6. TELA DE LOGIN CÓSMICA & CANVAS
-   ========================================================================== */
-.login-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-    margin: 0;
+
+
+/* CONTEÚDO */
+
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 25px 15px;
 }
 
-#spaceCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
 
-.login-card {
-    position: relative;
-    z-index: 2;
-    background: rgba(22, 15, 48, 0.75);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
-    padding: 40px;
+/* INÍCIO */
+
+.inicio {
+    background: white;
+
+    padding: 25px;
+
     border-radius: 12px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.login-card .logo {
-    display: inline-block;
+.inicio h2 {
+    color: #164b73;
+    margin-bottom: 15px;
+}
+
+.inicio label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.inicio input {
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    width: 100%;
+
+    font-size: 16px;
+}
+
+
+/* GRUPOS */
+
+.grupo {
+    background: white;
+
+    margin-bottom: 20px;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.titulo-grupo {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.titulo-grupo h2 {
+    color: #164b73;
+}
+
+
+/* BOTÃO ADICIONAR */
+
+.titulo-grupo button {
+    background: #164b73;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.titulo-grupo button:hover {
+    background: #0e3655;
+}
+
+
+/* PESSOA */
+
+.pessoa {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px;
+
+    border-top: 1px solid #eee;
+}
+
+.pessoa input[type="text"] {
+    flex: 1;
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+
+/* BOTÕES DE PRESENÇA */
+
+.presenca {
+    display: flex;
+
+    gap: 5px;
+}
+
+.presenca button {
+    border: none;
+
+    padding: 8px 10px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.btn-presente {
+    background: #d9f7df;
+    color: #17752a;
+}
+
+.btn-falta {
+    background: #ffe0e0;
+    color: #b21f1f;
+}
+
+.presenca .selecionado-presente {
+    background: #218838;
+    color: white;
+}
+
+.presenca .selecionado-falta {
+    background: #dc3545;
+    color: white;
+}
+
+
+/* REMOVER */
+
+.btn-remover {
+    background: #eee;
+
+    color: #777;
+
+    border: none;
+
+    padding: 8px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.btn-remover:hover {
+    background: #ddd;
+}
+
+
+/* RESUMO */
+
+.resumo {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    margin-top: 25px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.resumo h2 {
+    color: #164b73;
+
     margin-bottom: 20px;
 }
 
-.login-card h2 {
-    font-size: 1.3rem;
-    color: var(--cyan-neon);
-    margin-bottom: 25px;
+.resumo-caixas {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.resumo-caixas div {
+    background: #f0f2f5;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.resumo-caixas strong {
+    display: block;
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+}
+
+.resumo-caixas span {
+    color: #555;
+}
+
+.resumo-caixas .presente {
+    background: #e1f7e6;
+}
+
+.resumo-caixas .falta {
+    background: #ffe6e6;
+}
+
+
+/* AÇÕES */
+
+.acoes {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+
+    gap: 15px;
+
+    margin-top: 25px;
 }
 
-.login-card .form-group {
-    text-align: left;
+.acoes button {
+    flex: 1;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: bold;
 }
 
-.login-footer {
-    margin-top: 20px;
-    font-size: 0.85rem;
+.botao-pdf {
+    background: #164b73;
+    color: white;
 }
 
-.login-footer a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.3s ease;
+.botao-pdf:hover {
+    background: #0e3655;
 }
 
-.login-footer a:hover {
-    color: var(--secondary-neon);
+.botao-limpar {
+    background: #ddd;
+    color: #333;
 }
+
+.botao-limpar:hover {
+    background: #ccc;
+}
+
+
+/* RODAPÉ */
+
+footer {
+    background: #102a43;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+footer span {
+    font-size: 13px;
+
+    opacity: 0.7;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 650px) {
+
+    header {
+        padding: 20px 15px;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    .titulo-grupo {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .pessoa {
+        flex-wrap: wrap;
+    }
+
+    .pessoa input[type="text"] {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    .presenca {
+        flex: 1;
+    }
+
+    .presenca button {
+        flex: 1;
+    }
+
+    .resumo-caixas {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes {
+        flex-direction: column;
+    }
+}
+```
