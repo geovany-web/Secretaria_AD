@@ -1,160 +1,368 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Chamada - Assembleia de Deus</title>
+    <title>Chamada - AD Regional Esmeraldas</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Biblioteca para gerar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
-    <header>
-        <div class="logo">⛪</div>
+    <!-- CABEÇALHO -->
 
-        <div>
-            <h1>Assembleia de Deus</h1>
-            <p>Sistema de Chamada</p>
+    <header>
+
+        <div class="logo">
+
+            <div class="logo-ad">AD</div>
+
         </div>
+
+        <div class="cabecalho-texto">
+
+            <h1>ASSEMBLEIA DE DEUS</h1>
+
+            <p>Regional Esmeraldas</p>
+
+            <span>Ministério de Belo Horizonte</span>
+
+        </div>
+
     </header>
 
 
     <main>
 
-        <section class="inicio">
+        <!-- INFORMAÇÕES -->
 
-            <h2>Lista de Presença</h2>
+        <section class="informacoes">
 
-            <label for="data">Data da chamada:</label>
+            <div class="titulo">
 
-            <input type="date" id="data">
+                <h2>Lista de Presença</h2>
+
+                <p>
+                    Controle de presença da igreja
+                </p>
+
+            </div>
+
+
+            <div class="campos">
+
+                <div class="campo">
+
+                    <label for="data">
+                        Data da chamada
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="responsavel">
+                        Quem fez a chamada
+                    </label>
+
+                    <input
+                        type="text"
+                        id="responsavel"
+                        placeholder="Digite o nome da pessoa"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="dados-igreja">
+
+                <strong>AD Esmeraldas</strong>
+
+                <span>Regional: Esmeraldas</span>
+
+                <span>Pastor Regional: Pr. Welington Bicalho</span>
+
+                <span>
+                    Rua Treze de Maio, 170 - Esmeraldas/MG
+                </span>
+
+            </div>
 
         </section>
+
 
 
         <!-- HOMENS -->
+
         <section class="grupo">
 
-            <div class="titulo-grupo">
-                <h2>👨 Homens</h2>
+            <div class="cabecalho-grupo">
 
-                <button onclick="adicionarPessoa('homens')">
+                <div>
+
+                    <h2>Homens</h2>
+
+                    <span>
+                        Departamento Masculino
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-adicionar"
+                    data-grupo="homens"
+                >
                     + Adicionar
                 </button>
+
             </div>
 
-            <div id="homens" class="lista"></div>
+
+            <div
+                id="homens"
+                class="lista"
+            ></div>
 
         </section>
+
 
 
         <!-- MULHERES -->
+
         <section class="grupo">
 
-            <div class="titulo-grupo">
-                <h2>👩 Mulheres</h2>
+            <div class="cabecalho-grupo">
 
-                <button onclick="adicionarPessoa('mulheres')">
+                <div>
+
+                    <h2>Mulheres</h2>
+
+                    <span>
+                        Departamento Feminino
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-adicionar"
+                    data-grupo="mulheres"
+                >
                     + Adicionar
                 </button>
+
             </div>
 
-            <div id="mulheres" class="lista"></div>
+
+            <div
+                id="mulheres"
+                class="lista"
+            ></div>
 
         </section>
+
 
 
         <!-- JOVENS -->
+
         <section class="grupo">
 
-            <div class="titulo-grupo">
-                <h2>🧑 Jovens</h2>
+            <div class="cabecalho-grupo">
 
-                <button onclick="adicionarPessoa('jovens')">
+                <div>
+
+                    <h2>Jovens</h2>
+
+                    <span>
+                        Departamento de Jovens
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-adicionar"
+                    data-grupo="jovens"
+                >
                     + Adicionar
                 </button>
+
             </div>
 
-            <div id="jovens" class="lista"></div>
+
+            <div
+                id="jovens"
+                class="lista"
+            ></div>
 
         </section>
+
 
 
         <!-- ADOLESCENTES -->
+
         <section class="grupo">
 
-            <div class="titulo-grupo">
-                <h2>🧒 Adolescentes</h2>
+            <div class="cabecalho-grupo">
 
-                <button onclick="adicionarPessoa('adolescentes')">
+                <div>
+
+                    <h2>Adolescentes</h2>
+
+                    <span>
+                        Departamento de Adolescentes
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-adicionar"
+                    data-grupo="adolescentes"
+                >
                     + Adicionar
                 </button>
+
             </div>
 
-            <div id="adolescentes" class="lista"></div>
+
+            <div
+                id="adolescentes"
+                class="lista"
+            ></div>
 
         </section>
+
 
 
         <!-- CRIANÇAS -->
+
         <section class="grupo">
 
-            <div class="titulo-grupo">
-                <h2>👦 Crianças</h2>
+            <div class="cabecalho-grupo">
 
-                <button onclick="adicionarPessoa('criancas')">
+                <div>
+
+                    <h2>Crianças</h2>
+
+                    <span>
+                        Departamento Infantil
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-adicionar"
+                    data-grupo="criancas"
+                >
                     + Adicionar
                 </button>
+
             </div>
 
-            <div id="criancas" class="lista"></div>
+
+            <div
+                id="criancas"
+                class="lista"
+            ></div>
 
         </section>
+
 
 
         <!-- BERÇÁRIO -->
+
         <section class="grupo">
 
-            <div class="titulo-grupo">
-                <h2>👶 Berçário</h2>
+            <div class="cabecalho-grupo">
 
-                <button onclick="adicionarPessoa('bercario')">
+                <div>
+
+                    <h2>Berçário</h2>
+
+                    <span>
+                        Departamento Infantil
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-adicionar"
+                    data-grupo="bercario"
+                >
                     + Adicionar
                 </button>
+
             </div>
 
-            <div id="bercario" class="lista"></div>
+
+            <div
+                id="bercario"
+                class="lista"
+            ></div>
 
         </section>
+
 
 
         <!-- RESUMO -->
+
         <section class="resumo">
 
-            <h2>Resumo da chamada</h2>
+            <h2>Resumo da Chamada</h2>
 
-            <div class="resumo-caixas">
 
-                <div>
-                    <strong id="totalPessoas">0</strong>
-                    <span>Total</span>
+            <div class="resumo-grid">
+
+                <div class="resumo-item">
+
+                    <strong id="totalPessoas">
+                        0
+                    </strong>
+
+                    <span>
+                        Total
+                    </span>
+
                 </div>
 
-                <div class="presente">
-                    <strong id="totalPresentes">0</strong>
-                    <span>Presentes</span>
+
+                <div class="resumo-item presente">
+
+                    <strong id="totalPresentes">
+                        0
+                    </strong>
+
+                    <span>
+                        Presentes
+                    </span>
+
                 </div>
 
-                <div class="falta">
-                    <strong id="totalFaltas">0</strong>
-                    <span>Faltas</span>
+
+                <div class="resumo-item falta">
+
+                    <strong id="totalFaltas">
+                        0
+                    </strong>
+
+                    <span>
+                        Faltas
+                    </span>
+
                 </div>
 
             </div>
@@ -162,14 +370,23 @@
         </section>
 
 
+
         <!-- BOTÕES -->
+
         <section class="acoes">
 
-            <button class="botao-pdf" onclick="baixarPDF()">
+            <button
+                id="btnPDF"
+                class="btn-pdf"
+            >
                 📄 Baixar chamada em PDF
             </button>
 
-            <button class="botao-limpar" onclick="novaChamada()">
+
+            <button
+                id="btnNovaChamada"
+                class="btn-nova"
+            >
                 🔄 Nova chamada
             </button>
 
@@ -178,15 +395,30 @@
     </main>
 
 
+
+    <!-- RODAPÉ -->
+
     <footer>
 
-        <p>
-            Assembleia de Deus
-        </p>
+        <div class="footer-logo">
+            AD
+        </div>
 
-        <span>
-            Sistema de Chamada
-        </span>
+        <div>
+
+            <strong>
+                ASSEMBLEIA DE DEUS
+            </strong>
+
+            <p>
+                Regional Esmeraldas
+            </p>
+
+            <small>
+                Ministério de Belo Horizonte
+            </small>
+
+        </div>
 
     </footer>
 
@@ -196,4 +428,3 @@
 </body>
 
 </html>
-```
