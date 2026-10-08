@@ -1,6 +1,3 @@
-```javascript
-// Grupos da igreja
-
 const grupos = [
     "homens",
     "mulheres",
@@ -11,58 +8,151 @@ const grupos = [
 ];
 
 
-// Quando abrir o site
+const nomesGrupos = {
+
+    homens: "HOMENS",
+
+    mulheres: "MULHERES",
+
+    jovens: "JOVENS",
+
+    adolescentes: "ADOLESCENTES",
+
+    criancas: "CRIANÇAS",
+
+    bercario: "BERÇÁRIO"
+
+};
+
+
+
+/* =========================
+   INICIAR
+========================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Coloca a data atual
-    const hoje = new Date();
-
-    const ano = hoje.getFullYear();
-    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
-    const dia = String(hoje.getDate()).padStart(2, "0");
-
-    document.getElementById("data").value =
-        `${ano}-${mes}-${dia}`;
-
+    colocarDataAtual();
 
     carregarNomes();
 
     atualizarResumo();
 
+
+    /*
+        Aqui os botões são encontrados
+        pelo JavaScript.
+    */
+
+    const botoesAdicionar =
+        document.querySelectorAll(".btn-adicionar");
+
+
+    botoesAdicionar.forEach(function (botao) {
+
+        botao.addEventListener("click", function () {
+
+            const grupo =
+                botao.dataset.grupo;
+
+            adicionarPessoa(grupo);
+
+        });
+
+    });
+
+
+    document
+        .getElementById("btnPDF")
+        .addEventListener("click", baixarPDF);
+
+
+    document
+        .getElementById("btnNovaChamada")
+        .addEventListener("click", novaChamada);
+
+
+    document
+        .getElementById("responsavel")
+        .addEventListener("input", salvarNomes);
+
 });
 
 
-// ADICIONAR PESSOA
+
+/* =========================
+   DATA
+========================= */
+
+function colocarDataAtual() {
+
+    const campo =
+        document.getElementById("data");
+
+
+    const hoje = new Date();
+
+
+    const ano =
+        hoje.getFullYear();
+
+
+    const mes =
+        String(
+            hoje.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const dia =
+        String(
+            hoje.getDate()
+        ).padStart(2, "0");
+
+
+    campo.value =
+        `${ano}-${mes}-${dia}`;
+
+}
+
+
+
+/* =========================
+   ADICIONAR PESSOA
+========================= */
 
 function adicionarPessoa(grupo) {
 
-    const lista = document.getElementById(grupo);
+    const lista =
+        document.getElementById(grupo);
 
-    const pessoa = document.createElement("div");
+
+    const pessoa =
+        document.createElement("div");
+
 
     pessoa.className = "pessoa";
+
 
     pessoa.innerHTML = `
 
         <input
             type="text"
+            class="nome-pessoa"
             placeholder="Digite o nome"
-            oninput="salvarNomes()"
         >
 
         <div class="presenca">
 
             <button
+                type="button"
                 class="btn-presente"
-                onclick="marcarPresenca(this, 'presente')"
             >
                 ✓ Presente
             </button>
 
             <button
+                type="button"
                 class="btn-falta"
-                onclick="marcarPresenca(this, 'falta')"
             >
                 ✕ Falta
             </button>
@@ -70,79 +160,126 @@ function adicionarPessoa(grupo) {
         </div>
 
         <button
+            type="button"
             class="btn-remover"
-            onclick="removerPessoa(this)"
         >
             🗑️
         </button>
 
     `;
 
+
     lista.appendChild(pessoa);
+
+
+    configurarPessoa(pessoa);
+
+
+    pessoa
+        .querySelector(".nome-pessoa")
+        .focus();
+
 
     atualizarResumo();
 
     salvarNomes();
+
 }
 
 
-// MARCAR PRESENÇA OU FALTA
 
-function marcarPresenca(botao, tipo) {
+/* =========================
+   CONFIGURAR PESSOA
+========================= */
 
-    const pessoa = botao.parentElement;
+function configurarPessoa(pessoa) {
+
+    const nome =
+        pessoa.querySelector(".nome-pessoa");
+
 
     const presente =
         pessoa.querySelector(".btn-presente");
+
 
     const falta =
         pessoa.querySelector(".btn-falta");
 
 
-    presente.classList.remove("selecionado-presente");
-
-    falta.classList.remove("selecionado-falta");
-
-
-    if (tipo === "presente") {
-
-        presente.classList.add("selecionado-presente");
-
-    }
-
-    if (tipo === "falta") {
-
-        falta.classList.add("selecionado-falta");
-
-    }
+    const remover =
+        pessoa.querySelector(".btn-remover");
 
 
-    atualizarResumo();
+    nome.addEventListener(
+        "input",
+        function () {
 
-    salvarNomes();
+            atualizarResumo();
+
+            salvarNomes();
+
+        }
+    );
+
+
+    presente.addEventListener(
+        "click",
+        function () {
+
+            presente.classList.add("ativo");
+
+            falta.classList.remove("ativo");
+
+            atualizarResumo();
+
+            salvarNomes();
+
+        }
+    );
+
+
+    falta.addEventListener(
+        "click",
+        function () {
+
+            falta.classList.add("ativo");
+
+            presente.classList.remove("ativo");
+
+            atualizarResumo();
+
+            salvarNomes();
+
+        }
+    );
+
+
+    remover.addEventListener(
+        "click",
+        function () {
+
+            pessoa.remove();
+
+            atualizarResumo();
+
+            salvarNomes();
+
+        }
+    );
+
 }
 
 
-// REMOVER PESSOA
 
-function removerPessoa(botao) {
-
-    const pessoa = botao.parentElement;
-
-    pessoa.remove();
-
-    atualizarResumo();
-
-    salvarNomes();
-}
-
-
-// ATUALIZAR RESUMO
+/* =========================
+   RESUMO
+========================= */
 
 function atualizarResumo() {
 
     const pessoas =
         document.querySelectorAll(".pessoa");
+
 
     let total = 0;
 
@@ -154,64 +291,87 @@ function atualizarResumo() {
     pessoas.forEach(function (pessoa) {
 
         const nome =
-            pessoa.querySelector("input").value.trim();
+            pessoa
+                .querySelector(".nome-pessoa")
+                .value
+                .trim();
 
 
-        // Não conta pessoa sem nome
+        if (nome === "") {
 
-        if (nome !== "") {
+            return;
 
-            total++;
-
-            if (
-                pessoa
-                    .querySelector(".btn-presente")
-                    .classList
-                    .contains("selecionado-presente")
-            ) {
-
-                presentes++;
-
-            }
+        }
 
 
-            if (
-                pessoa
-                    .querySelector(".btn-falta")
-                    .classList
-                    .contains("selecionado-falta")
-            ) {
+        total++;
 
-                faltas++;
 
-            }
+        if (
+            pessoa
+                .querySelector(".btn-presente")
+                .classList
+                .contains("ativo")
+        ) {
+
+            presentes++;
+
+        }
+
+
+        if (
+            pessoa
+                .querySelector(".btn-falta")
+                .classList
+                .contains("ativo")
+        ) {
+
+            faltas++;
 
         }
 
     });
 
 
-    document.getElementById("totalPessoas").textContent =
-        total;
+    document
+        .getElementById("totalPessoas")
+        .textContent = total;
 
-    document.getElementById("totalPresentes").textContent =
-        presentes;
 
-    document.getElementById("totalFaltas").textContent =
-        faltas;
+    document
+        .getElementById("totalPresentes")
+        .textContent = presentes;
+
+
+    document
+        .getElementById("totalFaltas")
+        .textContent = faltas;
+
 }
 
 
-// SALVAR NOMES NO NAVEGADOR
+
+/* =========================
+   SALVAR
+========================= */
 
 function salvarNomes() {
 
-    const dados = {};
+    const dados = {
+
+        pessoas: {},
+
+        responsavel:
+            document
+                .getElementById("responsavel")
+                .value
+
+    };
 
 
     grupos.forEach(function (grupo) {
 
-        dados[grupo] = [];
+        dados.pessoas[grupo] = [];
 
 
         const pessoas =
@@ -223,47 +383,58 @@ function salvarNomes() {
         pessoas.forEach(function (pessoa) {
 
             const nome =
-                pessoa.querySelector("input").value.trim();
+                pessoa
+                    .querySelector(".nome-pessoa")
+                    .value
+                    .trim();
 
 
-            // Só salva quem tem nome
+            /*
+                Só salva quem realmente
+                escreveu um nome.
+            */
 
-            if (nome !== "") {
+            if (nome === "") {
 
-                let status = "";
-
-                if (
-                    pessoa
-                        .querySelector(".btn-presente")
-                        .classList
-                        .contains("selecionado-presente")
-                ) {
-
-                    status = "presente";
-
-                }
-
-                if (
-                    pessoa
-                        .querySelector(".btn-falta")
-                        .classList
-                        .contains("selecionado-falta")
-                ) {
-
-                    status = "falta";
-
-                }
-
-
-                dados[grupo].push({
-
-                    nome: nome,
-
-                    status: status
-
-                });
+                return;
 
             }
+
+
+            let status = "";
+
+
+            if (
+                pessoa
+                    .querySelector(".btn-presente")
+                    .classList
+                    .contains("ativo")
+            ) {
+
+                status = "presente";
+
+            }
+
+
+            if (
+                pessoa
+                    .querySelector(".btn-falta")
+                    .classList
+                    .contains("ativo")
+            ) {
+
+                status = "falta";
+
+            }
+
+
+            dados.pessoas[grupo].push({
+
+                nome: nome,
+
+                status: status
+
+            });
 
         });
 
@@ -271,24 +442,27 @@ function salvarNomes() {
 
 
     localStorage.setItem(
-        "chamadaIgreja",
+        "chamadaADEsmeraldas",
         JSON.stringify(dados)
     );
 
-
-    atualizarResumo();
 }
 
 
-// CARREGAR NOMES
+
+/* =========================
+   CARREGAR
+========================= */
 
 function carregarNomes() {
 
-    const dadosSalvos =
-        localStorage.getItem("chamadaIgreja");
+    const salvo =
+        localStorage.getItem(
+            "chamadaADEsmeraldas"
+        );
 
 
-    if (!dadosSalvos) {
+    if (!salvo) {
 
         return;
 
@@ -296,7 +470,17 @@ function carregarNomes() {
 
 
     const dados =
-        JSON.parse(dadosSalvos);
+        JSON.parse(salvo);
+
+
+    if (dados.responsavel) {
+
+        document
+            .getElementById("responsavel")
+            .value =
+            dados.responsavel;
+
+    }
 
 
     grupos.forEach(function (grupo) {
@@ -305,42 +489,44 @@ function carregarNomes() {
             document.getElementById(grupo);
 
 
-        if (!dados[grupo]) {
+        const pessoas =
+            dados.pessoas &&
+            dados.pessoas[grupo]
+                ? dados.pessoas[grupo]
+                : [];
 
-            return;
 
-        }
-
-
-        dados[grupo].forEach(function (item) {
+        pessoas.forEach(function (item) {
 
             const pessoa =
                 document.createElement("div");
 
 
-            pessoa.className = "pessoa";
+            pessoa.className =
+                "pessoa";
 
 
             pessoa.innerHTML = `
 
                 <input
                     type="text"
-                    value="${item.nome}"
-                    oninput="salvarNomes()"
+                    class="nome-pessoa"
+                    value="${escaparHTML(item.nome)}"
+                    placeholder="Digite o nome"
                 >
 
                 <div class="presenca">
 
                     <button
+                        type="button"
                         class="btn-presente"
-                        onclick="marcarPresenca(this, 'presente')"
                     >
                         ✓ Presente
                     </button>
 
                     <button
+                        type="button"
                         class="btn-falta"
-                        onclick="marcarPresenca(this, 'falta')"
                     >
                         ✕ Falta
                     </button>
@@ -348,8 +534,8 @@ function carregarNomes() {
                 </div>
 
                 <button
+                    type="button"
                     class="btn-remover"
-                    onclick="removerPessoa(this)"
                 >
                     🗑️
                 </button>
@@ -360,22 +546,29 @@ function carregarNomes() {
             lista.appendChild(pessoa);
 
 
-            if (item.status === "presente") {
+            configurarPessoa(pessoa);
+
+
+            if (
+                item.status === "presente"
+            ) {
 
                 pessoa
                     .querySelector(".btn-presente")
                     .classList
-                    .add("selecionado-presente");
+                    .add("ativo");
 
             }
 
 
-            if (item.status === "falta") {
+            if (
+                item.status === "falta"
+            ) {
 
                 pessoa
                     .querySelector(".btn-falta")
                     .classList
-                    .add("selecionado-falta");
+                    .add("ativo");
 
             }
 
@@ -383,19 +576,36 @@ function carregarNomes() {
 
     });
 
+}
 
-    atualizarResumo();
+
+
+/* =========================
+   ESCAPAR TEXTO
+========================= */
+
+function escaparHTML(texto) {
+
+    return texto
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
 
-// NOVA CHAMADA
+
+/* =========================
+   NOVA CHAMADA
+========================= */
 
 function novaChamada() {
 
     const confirmar =
         confirm(
-            "Deseja iniciar uma nova chamada? Os nomes serão mantidos, mas presença e falta serão apagadas."
+            "Iniciar uma nova chamada?\n\nOs nomes continuarão cadastrados, mas todas as presenças e faltas serão apagadas."
         );
 
 
@@ -413,12 +623,13 @@ function novaChamada() {
             pessoa
                 .querySelector(".btn-presente")
                 .classList
-                .remove("selecionado-presente");
+                .remove("ativo");
+
 
             pessoa
                 .querySelector(".btn-falta")
                 .classList
-                .remove("selecionado-falta");
+                .remove("ativo");
 
         });
 
@@ -430,25 +641,40 @@ function novaChamada() {
 }
 
 
-// BAIXAR PDF
+
+/* =========================
+   PDF
+========================= */
 
 function baixarPDF() {
 
-    const { jsPDF } = window.jspdf;
+    const { jsPDF } =
+        window.jspdf;
 
-    const pdf = new jsPDF();
+
+    const pdf =
+        new jsPDF();
 
 
     const data =
-        document.getElementById("data").value;
+        document
+            .getElementById("data")
+            .value;
+
+
+    const responsavel =
+        document
+            .getElementById("responsavel")
+            .value
+            .trim();
 
 
     let y = 20;
 
 
-    // TÍTULO
+    /* CABEÇALHO */
 
-    pdf.setFontSize(18);
+    pdf.setFontSize(17);
 
     pdf.setFont(undefined, "bold");
 
@@ -460,10 +686,40 @@ function baixarPDF() {
     );
 
 
-    y += 10;
+    y += 8;
 
 
     pdf.setFontSize(14);
+
+    pdf.text(
+        "REGIONAL ESMERALDAS",
+        105,
+        y,
+        { align: "center" }
+    );
+
+
+    y += 7;
+
+
+    pdf.setFontSize(10);
+
+    pdf.setFont(undefined, "normal");
+
+    pdf.text(
+        "Ministério de Belo Horizonte",
+        105,
+        y,
+        { align: "center" }
+    );
+
+
+    y += 12;
+
+
+    pdf.setFontSize(15);
+
+    pdf.setFont(undefined, "bold");
 
     pdf.text(
         "LISTA DE PRESENÇA",
@@ -480,8 +736,40 @@ function baixarPDF() {
 
     pdf.setFont(undefined, "normal");
 
+
     pdf.text(
         "Data: " + formatarData(data),
+        20,
+        y
+    );
+
+
+    y += 7;
+
+
+    pdf.text(
+        "Quem fez a chamada: " +
+        (responsavel || "Não informado"),
+        20,
+        y
+    );
+
+
+    y += 7;
+
+
+    pdf.text(
+        "Pastor Regional: Pr. Welington Bicalho",
+        20,
+        y
+    );
+
+
+    y += 7;
+
+
+    pdf.text(
+        "Endereço: Rua Treze de Maio, 170 - Esmeraldas/MG",
         20,
         y
     );
@@ -497,22 +785,7 @@ function baixarPDF() {
     let faltas = 0;
 
 
-    const nomesDosGrupos = {
-
-        homens: "HOMENS",
-
-        mulheres: "MULHERES",
-
-        jovens: "JOVENS",
-
-        adolescentes: "ADOLESCENTES",
-
-        criancas: "CRIANÇAS",
-
-        bercario: "BERÇÁRIO"
-
-    };
-
+    /* GRUPOS */
 
     grupos.forEach(function (grupo) {
 
@@ -522,41 +795,52 @@ function baixarPDF() {
             );
 
 
-        // Só coloca grupo que possui pessoas
+        const validas =
+            Array.from(pessoas)
+                .filter(function (pessoa) {
 
-        const pessoasValidas =
-            Array.from(pessoas).filter(function (pessoa) {
+                    return pessoa
+                        .querySelector(".nome-pessoa")
+                        .value
+                        .trim() !== "";
 
-                return pessoa
-                    .querySelector("input")
-                    .value
-                    .trim() !== "";
-
-            });
+                });
 
 
-        if (pessoasValidas.length === 0) {
+        /*
+            Grupo vazio não aparece
+            no PDF.
+        */
+
+        if (validas.length === 0) {
 
             return;
 
         }
 
 
-        y += 5;
+        if (y > 260) {
+
+            pdf.addPage();
+
+            y = 20;
+
+        }
 
 
-        pdf.setFontSize(13);
+        pdf.setFontSize(12);
 
         pdf.setFont(undefined, "bold");
 
+
         pdf.text(
-            nomesDosGrupos[grupo],
+            nomesGrupos[grupo],
             20,
             y
         );
 
 
-        y += 8;
+        y += 7;
 
 
         pdf.setFontSize(10);
@@ -564,26 +848,31 @@ function baixarPDF() {
         pdf.setFont(undefined, "normal");
 
 
-        pessoasValidas.forEach(function (pessoa, index) {
+        validas.forEach(function (
+            pessoa,
+            index
+        ) {
 
             const nome =
                 pessoa
-                    .querySelector("input")
+                    .querySelector(".nome-pessoa")
                     .value
                     .trim();
 
 
-            let status = "NÃO MARCADO";
+            let status =
+                "NÃO MARCADO";
 
 
             if (
                 pessoa
                     .querySelector(".btn-presente")
                     .classList
-                    .contains("selecionado-presente")
+                    .contains("ativo")
             ) {
 
-                status = "PRESENTE";
+                status =
+                    "PRESENTE";
 
                 presentes++;
 
@@ -594,10 +883,11 @@ function baixarPDF() {
                 pessoa
                     .querySelector(".btn-falta")
                     .classList
-                    .contains("selecionado-falta")
+                    .contains("ativo")
             ) {
 
-                status = "FALTA";
+                status =
+                    "FALTA";
 
                 faltas++;
 
@@ -624,8 +914,6 @@ function baixarPDF() {
             y += 7;
 
 
-            // Nova página
-
             if (y > 275) {
 
                 pdf.addPage();
@@ -636,15 +924,16 @@ function baixarPDF() {
 
         });
 
+
+        y += 5;
+
     });
 
 
-    // RESUMO
 
-    y += 8;
+    /* RESUMO */
 
-
-    if (y > 260) {
+    if (y > 250) {
 
         pdf.addPage();
 
@@ -653,12 +942,12 @@ function baixarPDF() {
     }
 
 
-    pdf.setFont(undefined, "bold");
-
     pdf.setFontSize(13);
 
+    pdf.setFont(undefined, "bold");
+
     pdf.text(
-        "RESUMO",
+        "RESUMO DA CHAMADA",
         20,
         y
     );
@@ -699,40 +988,62 @@ function baixarPDF() {
     );
 
 
-    // RODAPÉ
-
     y += 15;
 
-    pdf.setFontSize(9);
 
     pdf.text(
-        "Assembleia de Deus - Lista de Presença",
+        "Responsável pela chamada:",
+        20,
+        y
+    );
+
+
+    y += 8;
+
+
+    pdf.line(
+        20,
+        y,
+        100,
+        y
+    );
+
+
+    pdf.text(
+        responsavel || "Não informado",
+        20,
+        y + 6
+    );
+
+
+    y += 20;
+
+
+    pdf.setFontSize(8);
+
+    pdf.text(
+        "AD Esmeraldas - Assembleia de Deus - Ministério de Belo Horizonte",
         105,
         y,
         { align: "center" }
     );
 
 
-    // NOME DO ARQUIVO
-
-    let nomeArquivo = "chamada";
-
-    if (data) {
-
-        nomeArquivo =
-            "chamada-" + data;
-
-    }
+    const nomeArquivo =
+        data
+            ? `chamada-AD-Esmeraldas-${data}.pdf`
+            : "chamada-AD-Esmeraldas.pdf";
 
 
-    pdf.save(
-        nomeArquivo + ".pdf"
-    );
+    pdf.save(nomeArquivo);
 
 }
 
 
-// FORMATAR DATA
+
+/* =========================
+   FORMATAR DATA
+========================= */
 
 function formatarData(data) {
 
@@ -756,4 +1067,3 @@ function formatarData(data) {
     );
 
 }
-```
