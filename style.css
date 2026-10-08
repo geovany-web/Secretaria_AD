@@ -1,318 +1,565 @@
-```css
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #f3f5f8;
-    color: #222;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f7fa,
+            #e9eef3
+        );
+
+    color: #202b36;
 }
 
 
-/* CABEÇALHO */
+/* =========================
+   CABEÇALHO
+========================= */
 
 header {
-    background: linear-gradient(135deg, #102a43, #1e4f7a);
+
+    background:
+        linear-gradient(
+            135deg,
+            #092b4c,
+            #124f7d
+        );
+
     color: white;
 
-    padding: 25px;
+    padding: 28px 20px;
 
     display: flex;
-    align-items: center;
+
     justify-content: center;
 
-    gap: 15px;
+    align-items: center;
 
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    gap: 18px;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.20);
 }
 
+
 .logo {
-    width: 60px;
-    height: 60px;
+
+    width: 70px;
+    height: 70px;
 
     background: white;
-    color: #164b73;
 
     border-radius: 50%;
 
     display: flex;
-    align-items: center;
+
     justify-content: center;
 
+    align-items: center;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,0.25);
+}
+
+
+.logo-ad {
+
+    font-family: Georgia, serif;
+
     font-size: 30px;
+
+    font-weight: bold;
+
+    color: #123f66;
+
+    letter-spacing: -4px;
+
+    margin-right: 4px;
 }
 
-header h1 {
-    font-size: 27px;
+
+.cabecalho-texto h1 {
+
+    font-size: 25px;
+
+    letter-spacing: 1px;
 }
 
-header p {
-    margin-top: 5px;
-    opacity: 0.9;
+
+.cabecalho-texto p {
+
+    font-size: 22px;
+
+    margin-top: 3px;
 }
 
 
-/* CONTEÚDO */
+.cabecalho-texto span {
+
+    font-size: 13px;
+
+    opacity: 0.8;
+}
+
+
+
+/* =========================
+   CONTEÚDO
+========================= */
 
 main {
-    max-width: 900px;
+
+    max-width: 950px;
+
     margin: auto;
+
     padding: 25px 15px;
 }
 
 
-/* INÍCIO */
 
-.inicio {
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.informacoes {
+
     background: white;
+
+    border-radius: 14px;
 
     padding: 25px;
 
-    border-radius: 12px;
-
     margin-bottom: 20px;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
 }
 
-.inicio h2 {
-    color: #164b73;
-    margin-bottom: 15px;
+
+.titulo h2 {
+
+    color: #123f66;
+
+    font-size: 24px;
 }
 
-.inicio label {
+
+.titulo p {
+
+    color: #777;
+
+    margin-top: 5px;
+
+    margin-bottom: 20px;
+}
+
+
+.campos {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+
+.campo label {
+
     display: block;
-    margin-bottom: 8px;
+
     font-weight: bold;
+
+    margin-bottom: 7px;
 }
 
-.inicio input {
+
+.campo input {
+
+    width: 100%;
+
     padding: 12px;
 
     border: 1px solid #ccc;
 
     border-radius: 7px;
 
-    width: 100%;
-
-    font-size: 16px;
+    font-size: 15px;
 }
 
 
-/* GRUPOS */
+.campo input:focus {
+
+    outline: none;
+
+    border-color: #176296;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(23,98,150,0.12);
+}
+
+
+
+/* =========================
+   DADOS DA IGREJA
+========================= */
+
+.dados-igreja {
+
+    background: #f0f5f9;
+
+    border-left: 4px solid #176296;
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    font-size: 14px;
+}
+
+
+.dados-igreja strong {
+
+    color: #123f66;
+
+    font-size: 17px;
+}
+
+
+
+/* =========================
+   GRUPOS
+========================= */
 
 .grupo {
+
     background: white;
 
-    margin-bottom: 20px;
-
-    border-radius: 12px;
+    border-radius: 14px;
 
     padding: 20px;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
 }
 
-.titulo-grupo {
+
+.cabecalho-grupo {
+
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
-    margin-bottom: 15px;
+    gap: 15px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #e7e7e7;
 }
 
-.titulo-grupo h2 {
-    color: #164b73;
+
+.cabecalho-grupo h2 {
+
+    color: #123f66;
+
+    font-size: 20px;
 }
 
 
-/* BOTÃO ADICIONAR */
+.cabecalho-grupo span {
 
-.titulo-grupo button {
-    background: #164b73;
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+.btn-adicionar {
+
+    background: #176296;
 
     color: white;
 
     border: none;
 
-    padding: 10px 15px;
-
     border-radius: 7px;
+
+    padding: 10px 15px;
 
     cursor: pointer;
 
     font-weight: bold;
+
+    transition: 0.2s;
 }
 
-.titulo-grupo button:hover {
-    background: #0e3655;
+
+.btn-adicionar:hover {
+
+    background: #0d456d;
+
+    transform: translateY(-1px);
 }
 
 
-/* PESSOA */
+
+/* =========================
+   PESSOA
+========================= */
 
 .pessoa {
-    display: flex;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto auto;
 
     align-items: center;
 
     gap: 8px;
 
-    padding: 10px;
+    padding: 12px 0;
 
-    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eeeeee;
 }
 
-.pessoa input[type="text"] {
-    flex: 1;
+
+.nome-pessoa {
+
+    width: 100%;
 
     padding: 10px;
 
     border: 1px solid #ccc;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     font-size: 15px;
 }
 
 
-/* BOTÕES DE PRESENÇA */
+.nome-pessoa:focus {
+
+    outline: none;
+
+    border-color: #176296;
+}
+
 
 .presenca {
+
     display: flex;
 
     gap: 5px;
 }
 
+
 .presenca button {
+
     border: none;
 
-    padding: 8px 10px;
-
     border-radius: 6px;
+
+    padding: 9px 11px;
 
     cursor: pointer;
 
     font-weight: bold;
+
+    white-space: nowrap;
 }
+
 
 .btn-presente {
-    background: #d9f7df;
-    color: #17752a;
+
+    background: #e1f5e6;
+
+    color: #18752c;
 }
+
 
 .btn-falta {
-    background: #ffe0e0;
-    color: #b21f1f;
+
+    background: #ffe3e3;
+
+    color: #b32121;
 }
 
-.presenca .selecionado-presente {
-    background: #218838;
+
+.btn-presente.ativo {
+
+    background: #238b3d;
+
     color: white;
 }
 
-.presenca .selecionado-falta {
-    background: #dc3545;
+
+.btn-falta.ativo {
+
+    background: #d93232;
+
     color: white;
 }
 
-
-/* REMOVER */
 
 .btn-remover {
-    background: #eee;
-
-    color: #777;
 
     border: none;
 
-    padding: 8px;
+    background: #eeeeee;
+
+    color: #777;
+
+    padding: 9px;
 
     border-radius: 6px;
 
     cursor: pointer;
 }
 
+
 .btn-remover:hover {
-    background: #ddd;
+
+    background: #dddddd;
+
+    color: #c00;
 }
 
 
-/* RESUMO */
+
+/* =========================
+   RESUMO
+========================= */
 
 .resumo {
+
     background: white;
+
+    border-radius: 14px;
 
     padding: 25px;
 
-    border-radius: 12px;
-
     margin-top: 25px;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
 }
+
 
 .resumo h2 {
-    color: #164b73;
 
-    margin-bottom: 20px;
+    color: #123f66;
+
+    margin-bottom: 18px;
 }
 
-.resumo-caixas {
+
+.resumo-grid {
+
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 15px;
 }
 
-.resumo-caixas div {
-    background: #f0f2f5;
 
-    padding: 20px;
+.resumo-item {
+
+    background: #eef2f5;
 
     border-radius: 10px;
+
+    padding: 20px;
 
     text-align: center;
 }
 
-.resumo-caixas strong {
+
+.resumo-item strong {
+
     display: block;
 
-    font-size: 28px;
+    font-size: 30px;
 
-    margin-bottom: 5px;
-}
-
-.resumo-caixas span {
-    color: #555;
-}
-
-.resumo-caixas .presente {
-    background: #e1f7e6;
-}
-
-.resumo-caixas .falta {
-    background: #ffe6e6;
+    color: #123f66;
 }
 
 
-/* AÇÕES */
+.resumo-item span {
+
+    color: #666;
+}
+
+
+.resumo-item.presente {
+
+    background: #e4f6e8;
+}
+
+
+.resumo-item.presente strong {
+
+    color: #218838;
+}
+
+
+.resumo-item.falta {
+
+    background: #ffe7e7;
+}
+
+
+.resumo-item.falta strong {
+
+    color: #d32f2f;
+}
+
+
+
+/* =========================
+   AÇÕES
+========================= */
 
 .acoes {
-    display: flex;
 
-    gap: 15px;
+    display: grid;
 
-    margin-top: 25px;
+    grid-template-columns: 2fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 20px;
 }
 
+
 .acoes button {
-    flex: 1;
 
     border: none;
 
@@ -327,86 +574,164 @@ main {
     font-weight: bold;
 }
 
-.botao-pdf {
-    background: #164b73;
+
+.btn-pdf {
+
+    background: #123f66;
+
     color: white;
 }
 
-.botao-pdf:hover {
-    background: #0e3655;
+
+.btn-pdf:hover {
+
+    background: #0b2e4d;
 }
 
-.botao-limpar {
-    background: #ddd;
+
+.btn-nova {
+
+    background: #dfe3e7;
+
     color: #333;
 }
 
-.botao-limpar:hover {
-    background: #ccc;
+
+.btn-nova:hover {
+
+    background: #cfd4d8;
 }
 
 
-/* RODAPÉ */
+
+/* =========================
+   RODAPÉ
+========================= */
 
 footer {
-    background: #102a43;
+
+    background: #092b4c;
 
     color: white;
 
-    text-align: center;
-
     padding: 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
 
     margin-top: 30px;
 }
 
-footer span {
-    font-size: 13px;
+
+.footer-logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #123f66;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-weight: bold;
+
+    font-family: Georgia, serif;
+
+    font-size: 20px;
+}
+
+
+footer p {
+
+    margin-top: 3px;
+
+    font-size: 14px;
+}
+
+
+footer small {
 
     opacity: 0.7;
 }
 
 
-/* CELULAR */
 
-@media (max-width: 650px) {
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 700px) {
 
     header {
-        padding: 20px 15px;
+
+        justify-content: flex-start;
     }
 
-    header h1 {
-        font-size: 21px;
+
+    .cabecalho-texto h1 {
+
+        font-size: 19px;
     }
 
-    .titulo-grupo {
-        align-items: flex-start;
-        gap: 10px;
+
+    .cabecalho-texto p {
+
+        font-size: 18px;
     }
 
-    .pessoa {
-        flex-wrap: wrap;
-    }
 
-    .pessoa input[type="text"] {
-        width: 100%;
-        flex-basis: 100%;
-    }
+    .campos {
 
-    .presenca {
-        flex: 1;
-    }
-
-    .presenca button {
-        flex: 1;
-    }
-
-    .resumo-caixas {
         grid-template-columns: 1fr;
     }
 
-    .acoes {
-        flex-direction: column;
+
+    .pessoa {
+
+        grid-template-columns: 1fr;
     }
+
+
+    .presenca {
+
+        width: 100%;
+    }
+
+
+    .presenca button {
+
+        flex: 1;
+    }
+
+
+    .btn-remover {
+
+        width: 100%;
+    }
+
+
+    .resumo-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .acoes {
+
+        grid-template-columns: 1fr;
+    }
+
 }
-```
